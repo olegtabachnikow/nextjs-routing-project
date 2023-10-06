@@ -1,10 +1,10 @@
 import { FC } from 'react';
-import type { DummyDataType } from '@/data/dummy-data';
+import { EventDataType } from '@/helpers/api-util';
 import EventItem from './EventItem';
 import classes from './EventList.module.css';
 
 interface EventListProps {
-  items: DummyDataType[];
+  items: EventDataType[];
 }
 
 const EventList: FC<EventListProps> = ({ items }) => {
