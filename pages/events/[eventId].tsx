@@ -8,6 +8,7 @@ import {
   getFeaturedEvents,
 } from '@/helpers/api-util';
 import { GetStaticPropsContext } from 'next';
+import Head from 'next/head';
 
 interface Props {
   event: EventDataType;
@@ -23,6 +24,10 @@ const EventDetailPage: FC<Props> = ({ event }) => {
   }
   return (
     <>
+      <Head>
+        <title>{event.title}</title>
+        <meta name='description' content={event.description} />
+      </Head>
       <EventSummary title={event.title} />
       <EventLogistics
         date={event.date}

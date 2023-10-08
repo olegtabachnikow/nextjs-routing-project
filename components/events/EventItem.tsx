@@ -1,13 +1,14 @@
 import { FC } from 'react';
-import type { DummyDataType } from '@/data/dummy-data';
 import classes from './eventItem.module.css';
 import Button from '../ui/Button';
 import DateIcon from '../icons/date-icon';
 import AddressIcon from '../icons/address-icon';
 import ArrowRightIcon from '../icons/arrow-right-icon';
+import { EventDataType } from '@/helpers/api-util';
+import Image from 'next/image';
 
 interface EventItemProps {
-  item: DummyDataType;
+  item: EventDataType;
 }
 
 const EventItem: FC<EventItemProps> = ({ item }) => {
@@ -20,7 +21,7 @@ const EventItem: FC<EventItemProps> = ({ item }) => {
   const exploreLink = `/events/${item.id}`;
   return (
     <li className={classes.item}>
-      <img src={'/' + item.image} alt={item.title} />
+      <Image src={'/' + item.image} alt={item.title} width={250} height={160} />
       <div className={classes.content}>
         <div className={classes.summary}>
           <h2>{item.title}</h2>

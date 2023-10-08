@@ -4,6 +4,7 @@ import { EventDataType, getAllEvents } from '@/helpers/api-util';
 import { GetStaticPropsContext } from 'next';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
+import Head from 'next/head';
 
 interface Props {
   events: EventDataType[];
@@ -16,6 +17,10 @@ const AllEventsPage: FC<Props> = ({ events }) => {
   }
   return (
     <>
+      <Head>
+        <title>All Events</title>
+        <meta name='description' content='All events' />
+      </Head>
       <EventSearch onSearch={findEventsHandler} />
       <EventList items={events} />
     </>

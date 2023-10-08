@@ -3,6 +3,7 @@ import AddressIcon from '../icons/address-icon';
 import DateIcon from '../icons/date-icon';
 import LogisticsItem from './LogisticsItem';
 import classes from './EventLogistics.module.css';
+import Image from 'next/image';
 
 interface EventLogisticsProps {
   date: string;
@@ -27,7 +28,7 @@ const EventLogistics: FC<EventLogisticsProps> = ({
   return (
     <section className={classes.logistics}>
       <div className={classes.image}>
-        <img src={`/${image}`} alt={imageAlt} />
+        <Image src={`/${image}`} alt={imageAlt} width={240} height={240} />
       </div>
       <ul className={classes.list}>
         <LogisticsItem icon={DateIcon}>

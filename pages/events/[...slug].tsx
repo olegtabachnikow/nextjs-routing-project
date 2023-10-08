@@ -6,6 +6,7 @@ import ErrorAlert from '@/components/ui/ErrorAlert';
 import { EventDataType } from '@/helpers/api-util';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
+import Head from 'next/head';
 
 const FilteredEventsPage: FC = () => {
   const [currentFilteredEvents, setCurrentFilteredIvents] =
@@ -21,8 +22,6 @@ const FilteredEventsPage: FC = () => {
         .catch((err) => err)
   );
 
-  console.log(data, filterData);
-
   useEffect(() => {
     if (data) {
       const events: EventDataType[] = [];
@@ -34,19 +33,35 @@ const FilteredEventsPage: FC = () => {
       }
       setCurrentFilteredIvents(events);
     }
-    console.log(data);
   }, [data]);
 
+  const filteredYear = filterData?.length && filterData[0];
+  const filteredMonth = filterData?.length && filterData[1];
+  const numYear = !!filteredYear && +filteredYear;
+  const numMonth = !!filteredMonth && +filteredMonth;
+
+  const pageHeadData = (
+    <Head>
+      <title>Filtered Events</title>
+      <meta
+        name='description'
+        content={`All events for ${numMonth}/${numYear}`}
+      />
+    </Head>
+  );
+
   if (!currentFilteredEvents || !filterData) {
-    return <p className='center'>Loading...</p>;
+    return (
+      <>
+        {pageHeadData}
+        <p className='center'>Loading...</p>
+      </>
+    );
   }
 
-  const filteredYear = filterData[0];
-  const filteredMonth = filterData[1];
-  const numYear = +filteredYear;
-  const numMonth = +filteredMonth;
-
   if (
+    !numYear ||
+    !numMonth ||
     isNaN(numYear) ||
     isNaN(numMonth) ||
     numYear > 2030 ||
@@ -57,6 +72,7 @@ const FilteredEventsPage: FC = () => {
   ) {
     return (
       <>
+        {pageHeadData}
         <ErrorAlert>
           <p>Invalid filters</p>
         </ErrorAlert>
@@ -78,6 +94,7 @@ const FilteredEventsPage: FC = () => {
   if (!filteredEvents || filteredEvents.length === 0) {
     return (
       <>
+        {pageHeadData}
         <ErrorAlert>
           <p>No events found</p>
         </ErrorAlert>
@@ -92,6 +109,13 @@ const FilteredEventsPage: FC = () => {
 
   return (
     <>
+      <Head>
+        <title>Filtered Events</title>
+        <meta
+          name='description'
+          content={`All events for ${numMonth}/${numYear}`}
+        />
+      </Head>
       <ResultsTitle date={currentDate} />
       <EventList items={filteredEvents} />
     </>
