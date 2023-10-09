@@ -9,6 +9,7 @@ import {
 } from '@/helpers/api-util';
 import { GetStaticPropsContext } from 'next';
 import Head from 'next/head';
+import Comments from '@/components/input/Comments';
 
 interface Props {
   event: EventDataType;
@@ -38,6 +39,7 @@ const EventDetailPage: FC<Props> = ({ event }) => {
       <EventContent>
         <p>{event.description}</p>
       </EventContent>
+      <Comments eventId={event.id} />
     </>
   );
 };
