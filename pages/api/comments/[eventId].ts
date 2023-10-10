@@ -38,15 +38,15 @@ export default async function handler(
       return;
     }
     const newComment = {
-      _id: '',
       email,
       name,
       text,
     };
     let result: InsertOneResult<Document>;
+
     try {
       result = await insertDocument(client, 'comments', newComment);
-      newComment._id = result.insertedId.toString();
+      console.log('result', result);
       res.status(201).json({ message: 'Added comment.', comment: newComment });
     } catch (error) {
       res.status(500).json({ message: 'Inserting comment failed' });
